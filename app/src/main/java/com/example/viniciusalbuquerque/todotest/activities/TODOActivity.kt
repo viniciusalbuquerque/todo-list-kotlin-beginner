@@ -53,7 +53,7 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
 
     override fun addTODO(todoWrapperID: Long, todoID: Long) {
         val json = getTODOJSON(todoWrapperID, todoID)
-        Requests(this).request(json, URL_ADD_TODO, Request.Method.POST, this)
+        Requests(this).request(json, URL_ADD_TODO, Request.Method.PUT, this)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
