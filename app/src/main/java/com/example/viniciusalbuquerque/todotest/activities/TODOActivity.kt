@@ -54,20 +54,18 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
     override fun addTODO(todoWrapperID: Long, todoID: Long) {
         val json = getTODOJSON(todoWrapperID, todoID)
         Requests(this).request(json, URL_ADD_TODO, Request.Method.PUT, this)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun removeTODO(todoWrapperID: Long, todoID: Long) {
         val json = getTODOJSON(todoWrapperID, todoID)
         Requests(this).request(json, URL_REMOVE_TODO, Request.Method.POST, this)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onRequestSuccess(response: JSONObject) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i("TODOActivity", response.toString()) //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onRequestError(error: VolleyError) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i("TODOAcVolleyError:", error.message)
     }
 }
