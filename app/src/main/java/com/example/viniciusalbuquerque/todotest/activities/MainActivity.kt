@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
         val message = if(error.message != null) error.message else "onRequestError"
         Log.i(TAG, message)
         progressDialog.dismiss()
-        MyAlertDialog().create(this, message = message!!)
+        MyAlertDialog().create(this, message = message!!).show()
     }
 
     private fun getTodos(): ArrayList<TODOWrapper> {
