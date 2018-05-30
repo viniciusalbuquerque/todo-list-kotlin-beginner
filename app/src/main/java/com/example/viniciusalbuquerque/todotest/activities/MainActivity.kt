@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
 
     private fun openAddNewToDoDialog() {
         val addDialog = AddToDoDialogFragment()
+        addDialog.textTitle = "Register New List Of Tasks"
         addDialog.onClickListener = View.OnClickListener {
             val todoTitle = addDialog.editTextToDoText?.text.toString()
             saveToDoWrapper(todoTitle)

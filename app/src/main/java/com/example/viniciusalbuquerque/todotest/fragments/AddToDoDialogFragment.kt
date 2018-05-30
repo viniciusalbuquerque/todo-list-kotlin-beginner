@@ -9,14 +9,15 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.viniciusalbuquerque.todotest.R
-import kotlinx.android.synthetic.main.dialog_new_todo.*
 
 class AddToDoDialogFragment() : DialogFragment() {
 
     val TAG : String = "AddToDoDialogFragment"
     var onClickListener: View.OnClickListener? = null
     var editTextToDoText : EditText? = null
+    var textTitle : String? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -30,11 +31,18 @@ class AddToDoDialogFragment() : DialogFragment() {
         val view = inflater!!.inflate(R.layout.dialog_new_todo, container, false)
         val buttonAdd = view.findViewById<Button>(R.id.dialog_new_todo_button_add)
         val buttonCancel = view.findViewById<Button>(R.id.dialog_new_todo_button_cancel)
-        editTextToDoText = view.findViewById<EditText>(R.id.dialog_new_todo_edittext_todo)
+        editTextToDoText = view.findViewById(R.id.dialog_new_todo_edittext_todo)
+
+        if(textTitle != null) {
+            view.findViewById<TextView>(R.id.dialog_new_todo_textview_title).text = textTitle
+        }
+
         buttonAdd.setOnClickListener(onClickListener)
-        buttonCancel.setOnClickListener(View.OnClickListener {
+        buttonCancel.setOnClickListener({
             this.dismiss()
         })
         return view
     }
+
+
 }
