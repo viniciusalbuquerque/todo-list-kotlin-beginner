@@ -6,20 +6,29 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import com.android.volley.Request
+import com.android.volley.VolleyError
 import com.example.viniciusalbuquerque.todotest.R
+import com.example.viniciusalbuquerque.todotest.Requests
 import com.example.viniciusalbuquerque.todotest.models.adapters.ListOfTODOSAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
+import com.example.viniciusalbuquerque.todotest.models.classes.URL_LIST_TODO
+import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse {
 
     private val TAG = "MainActivity";
     private var todoWrappers : List<TODOWrapper>? = null
+    private lateinit var requests: Requests
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        requests = Requests(this)
 
         todoWrappers = getTodos()
         val listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers as ArrayList<TODOWrapper>, this)
@@ -31,6 +40,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        requests.request(JSONObject(), URL_LIST_TODO, Request.Method.GET, this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requests.requestQueue.cancelAll(URL_LIST_TODO)
+    }
+
     override fun onClick(v: View?) {
         val adapterPosition = recyclerViewListOfTODOS.getChildAdapterPosition(v)
         val todo = this.todoWrappers?.get(adapterPosition)
@@ -39,6 +59,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             this.putExtra(com.example.viniciusalbuquerque.todotest.activities.INTENT_TODO, todo)
         }
         startActivity(intent)
+    }
+
+    override fun onRequestSuccess(response: JSONObject) {
+
+    }
+
+    override fun onRequestError(error: VolleyError) {
+
     }
 
     private fun getTodos(): ArrayList<TODOWrapper> {

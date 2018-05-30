@@ -23,7 +23,7 @@ class Requests(val context: Context) {
             onRequestReponse.onRequestSuccess(it)
         }, Response.ErrorListener {
             onRequestReponse.onRequestError(it)
-        })
+        }).setTag(url)
         this.requestQueue.add(request)
     }
 }
