@@ -24,8 +24,8 @@ const val INTENT_TODO = "INTENT_TODO_EXTRA";
 class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods {
 
     private lateinit var listOfActivities: ArrayList<TODO>
-    var todoWrapper : TODOWrapper? = null
-    var adapter : TODOAdapter? = null
+    private lateinit var todoWrapper : TODOWrapper
+    private lateinit var adapter : TODOAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,25 +36,28 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
 
         todoWrapper = getTodoFromIntent()
 
-        Log.i(TODOActivity::class.java.simpleName, todoWrapper?.title)
+        Log.i(TODOActivity::class.java.simpleName, todoWrapper.title)
 
         configLayout()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = getMenuInflater()
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId) {
-            R.id.menu_action_add -> {
-                openAddNewToDoDialog()
-            }
+        fabNewTODO.setOnClickListener {
+            openAddNewToDoDialog()
         }
-        return super.onOptionsItemSelected(item)
     }
+//
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val menuInflater = getMenuInflater()
+//        menuInflater.inflate(R.menu.toolbar_menu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when(item!!.itemId) {
+//            R.id.menu_action_add -> {
+//                openAddNewToDoDialog()
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private fun openAddNewToDoDialog() {
         val addDialog = AddToDoDialogFragment()
@@ -69,22 +72,26 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
     }
 
     private fun saveToDo(todoTitle: String) {
-        val lastId = listOfActivities.sortedBy { it.id }.last().id
-        val todo = TODO(lastId.plus(1), todoTitle)
+        val _ID = if(listOfActivities.isEmpty()) 0 else listOfActivities.sortedBy { it.id }.last().id.plus(1)
+        val todo = TODO(_ID, todoTitle)
         listOfActivities.add(todo)
-        adapter?.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 
     private fun configLayout() {
-        activityTodoTextViewTitle.text = todoWrapper?.title
-        listOfActivities = ArrayList(todoWrapper?.todoActivies!!)
-        adapter = TODOAdapter(this, todoWrapper?.id!!, listOfActivities, this)
+        activityTodoTextViewTitle.text = todoWrapper.title
+        var todoActivies = todoWrapper.todoActivies
+        if(todoActivies == null)
+            todoActivies = ArrayList()
+
+        listOfActivities = todoActivies
+        adapter = TODOAdapter(this, todoWrapper.id, listOfActivities, this)
         activityTodoRecyclerViewTodos.adapter = adapter
         activityTodoRecyclerViewTodos.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun getTodoFromIntent(): TODOWrapper? {
-        return intent.extras.get(INTENT_TODO) as TODOWrapper?
+    private fun getTodoFromIntent(): TODOWrapper {
+        return intent.extras.get(INTENT_TODO) as TODOWrapper
     }
 
     fun getTODOJSON(todoWrapperID: Long, todoID: Long) : JSONObject {

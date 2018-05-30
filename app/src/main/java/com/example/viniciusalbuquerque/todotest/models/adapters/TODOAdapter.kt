@@ -20,7 +20,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
                   val onTODORequestMethods: OnTODORequestMethods)
         : RecyclerView.Adapter<TODOAdapter.ViewHolder>() {
 
-    private var sharedPreferences: SharedPreferences?
+    private var sharedPreferences: SharedPreferences
 
     init {
         this.sharedPreferences = context.getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
@@ -39,7 +39,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
         val todoID = todo.id
         val value = todoWrapperId.toString() + ":" + todoID
 
-        val stringSet:Set<String> = this.sharedPreferences?.getStringSet(KEY_SAVED_TODOS, setOf())!!
+        val stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
         if(stringSet.contains(value))
             todo.isDone = true
 
@@ -76,7 +76,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
     }
 
     private fun addToLocalSavings(value: String): Set<String> {
-        var stringSet:Set<String> = this.sharedPreferences?.getStringSet(KEY_SAVED_TODOS, setOf())!!
+        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
         stringSet.apply {
             stringSet = this.plusElement(value)
         }
@@ -84,7 +84,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
     }
 
     private fun removeFromLocalSavings(value: String): Set<String> {
-        var stringSet:Set<String> = this.sharedPreferences?.getStringSet(KEY_SAVED_TODOS, setOf())!!
+        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
         stringSet.apply {
             stringSet = this.minusElement(value)
         }
@@ -92,7 +92,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
     }
 
     private fun updateSavedSet(value: Set<String>) {
-        sharedPreferences?.edit().apply {
+        sharedPreferences.edit().apply {
             this!!.putStringSet(KEY_SAVED_TODOS, value)
         }?.apply()
     }
