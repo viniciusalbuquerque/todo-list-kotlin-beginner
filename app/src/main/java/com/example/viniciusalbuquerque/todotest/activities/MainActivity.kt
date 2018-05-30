@@ -1,8 +1,8 @@
 package com.example.viniciusalbuquerque.todotest.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -13,17 +13,21 @@ import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.Requests
 import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.models.adapters.ListOfTODOSAdapter
-import com.example.viniciusalbuquerque.todotest.models.classes.*
+import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
+import com.example.viniciusalbuquerque.todotest.models.classes.URL_LIST_TODO
+import com.example.viniciusalbuquerque.todotest.models.classes.dialogs.MyAlertDialog
+import com.example.viniciusalbuquerque.todotest.models.classes.dialogs.MyProgressDialog
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse {
 
-    private val TAG = "MainActivity";
+    private val TAG = MainActivity::class.java.name
     private lateinit var todoWrappers : ArrayList<TODOWrapper>
     private lateinit var requests: Requests
     private lateinit var listOfTODOSAdapter : ListOfTODOSAdapter
+    private lateinit var progressDialog : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
 
         fabButtonConfig()
 
+
+        progressDialog = MyProgressDialog().create(this, layoutInflater)
     }
 
     private fun fabButtonConfig() {
@@ -71,6 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
 
     override fun onResume() {
         super.onResume()
+        progressDialog.show()
         requests.request(JSONObject(), URL_LIST_TODO, Request.Method.GET, this)
     }
 
@@ -90,11 +97,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
     }
 
     override fun onRequestSuccess(response: JSONObject) {
-        Log.i(MainActivity::class.java.name, response.toString()) //To change body of created functions use File | Settings | File Templates.
+        Log.i(TAG, response.toString())
+        progressDialog.dismiss()
+        //GET TODO WRAPPERS FROM JSON
     }
 
     override fun onRequestError(error: VolleyError) {
-        Log.i(MainActivity::class.java.name, error.message)
+        val message = if(error.message != null) error.message else "onRequestError"
+        Log.i(TAG, message)
+        progressDialog.dismiss()
+        MyAlertDialog().create(this, message = message!!)
     }
 
     private fun getTodos(): ArrayList<TODOWrapper> {
