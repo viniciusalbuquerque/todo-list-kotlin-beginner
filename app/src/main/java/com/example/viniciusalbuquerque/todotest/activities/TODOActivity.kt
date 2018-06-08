@@ -43,21 +43,6 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
             openAddNewToDoDialog()
         }
     }
-//
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        val menuInflater = getMenuInflater()
-//        menuInflater.inflate(R.menu.toolbar_menu, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        when(item!!.itemId) {
-//            R.id.menu_action_add -> {
-//                openAddNewToDoDialog()
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
     private fun openAddNewToDoDialog() {
         val addDialog = AddToDoDialogFragment()
@@ -81,7 +66,7 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
     private fun configLayout() {
         activityTodoTextViewTitle.text = todoWrapper.title
         var todoActivies = todoWrapper.todoActivies
-        if(todoActivies == null)
+        if(null == todoActivies)
             todoActivies = ArrayList()
 
         listOfActivities = todoActivies
@@ -118,4 +103,21 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
     override fun onRequestError(error: VolleyError) {
         Log.i("TODOAcVolleyError:", error.message)
     }
+
+    // region menu - commented
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val menuInflater = getMenuInflater()
+//        menuInflater.inflate(R.menu.toolbar_menu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when(item!!.itemId) {
+//            R.id.menu_action_add -> {
+//                openAddNewToDoDialog()
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
+//endregion
 }

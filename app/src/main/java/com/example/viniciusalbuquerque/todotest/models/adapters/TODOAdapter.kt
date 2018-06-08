@@ -20,11 +20,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
                   val onTODORequestMethods: OnTODORequestMethods)
         : RecyclerView.Adapter<TODOAdapter.ViewHolder>() {
 
-    private var sharedPreferences: SharedPreferences
-
-    init {
-        this.sharedPreferences = context.getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-    }
+//    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_todo, parent, false))
@@ -37,17 +33,17 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val todo = todoList.get(position)
         val todoID = todo.id
-        val value = todoWrapperId.toString() + ":" + todoID
+//        val value = todoWrapperId.toString() + ":" + todoID
 
-        val stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
-        if(stringSet.contains(value))
-            todo.isDone = true
+//        val stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
+//        if(stringSet.contains(value))
+//            todo.isDone = true
 
         holder.hCheckBox.text = todo.title
         holder.hCheckBox.isChecked = todo.isDone
 
         holder.hCheckBox.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-            updateComponents(holder,todo)
+//            updateComponents(holder,todo)
             if(isChecked) {
                 onTODORequestMethods.addTODO(todoWrapperId, todoID)
             } else {
@@ -56,49 +52,50 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
 
         }
     }
+    // region Local savings routine
+//    private fun updateComponents(holder: ViewHolder, todo: TODO) {
+//        updateTODO(todo, holder.hCheckBox.isChecked)
+//    }
 
-    private fun updateComponents(holder: ViewHolder, todo: TODO) {
-        updateTODO(todo, holder.hCheckBox.isChecked)
-    }
+//    private fun updateTODO(todo: TODO, isDone : Boolean) {
+//        todo.isDone = isDone
+//        val todoID = todo.id
+//        val value = todoWrapperId.toString() + ":" + todoID
+//        val setString : Set<String>
+//        if(!isDone) {
+//            setString = removeFromLocalSavings(value)
+//        } else {
+//            setString = addToLocalSavings(value)
+//        }
+//
+//        updateSavedSet(setString)
+//    }
 
-    private fun updateTODO(todo: TODO, isDone : Boolean) {
-        todo.isDone = isDone
-        val todoID = todo.id
-        val value = todoWrapperId.toString() + ":" + todoID
-        val setString : Set<String>
-        if(!isDone) {
-            setString = removeFromLocalSavings(value)
-        } else {
-            setString = addToLocalSavings(value)
-        }
+//    private fun addToLocalSavings(value: String): Set<String> {
+//        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
+//        stringSet.apply {
+//            stringSet = this.plusElement(value)
+//        }
+//        return stringSet
+//    }
+//
+//    private fun removeFromLocalSavings(value: String): Set<String> {
+//        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
+//        stringSet.apply {
+//            stringSet = this.minusElement(value)
+//        }
+//        return stringSet
+//    }
+//
+//    private fun updateSavedSet(value: Set<String>) {
+//        sharedPreferences.edit().apply {
+//            this!!.putStringSet(KEY_SAVED_TODOS, value)
+//        }?.apply()
+//    }
 
-        updateSavedSet(setString)
-    }
-
-    private fun addToLocalSavings(value: String): Set<String> {
-        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
-        stringSet.apply {
-            stringSet = this.plusElement(value)
-        }
-        return stringSet
-    }
-
-    private fun removeFromLocalSavings(value: String): Set<String> {
-        var stringSet:Set<String> = this.sharedPreferences.getStringSet(KEY_SAVED_TODOS, setOf())!!
-        stringSet.apply {
-            stringSet = this.minusElement(value)
-        }
-        return stringSet
-    }
-
-    private fun updateSavedSet(value: Set<String>) {
-        sharedPreferences.edit().apply {
-            this!!.putStringSet(KEY_SAVED_TODOS, value)
-        }?.apply()
-    }
+    //endregion
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var shouldUpdate : Boolean = false
         val hCheckBox = itemView.adapter_todo_checkbox
     }
 }

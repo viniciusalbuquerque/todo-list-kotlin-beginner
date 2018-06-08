@@ -1,6 +1,8 @@
 package com.example.viniciusalbuquerque.todotest.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -13,10 +15,11 @@ import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.Requests
 import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.models.adapters.ListOfTODOSAdapter
+import com.example.viniciusalbuquerque.todotest.models.classes.KEY_SHARED_PREFERENCES
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.classes.URL_LIST_TODO
-import com.example.viniciusalbuquerque.todotest.models.classes.dialogs.MyAlertDialog
-import com.example.viniciusalbuquerque.todotest.models.classes.dialogs.MyProgressDialog
+import com.example.viniciusalbuquerque.todotest.models.dialogs.MyAlertDialog
+import com.example.viniciusalbuquerque.todotest.models.dialogs.MyProgressDialog
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -41,7 +44,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
         recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
 
         fabButtonConfig()
-
 
         progressDialog = MyProgressDialog().create(this, layoutInflater)
     }
@@ -85,6 +87,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
     override fun onPause() {
         super.onPause()
         requests.requestQueue.cancelAll(URL_LIST_TODO)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences: SharedPreferences = getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
     }
 
     override fun onClick(v: View?) {
