@@ -12,8 +12,12 @@ import android.view.View
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.example.viniciusalbuquerque.todotest.R
-import com.example.viniciusalbuquerque.todotest.Requests
+import com.example.viniciusalbuquerque.todotest.WebRequests
+import com.example.viniciusalbuquerque.todotest.presenters.TodoWrapperPresenter
+import com.example.viniciusalbuquerque.todotest.contracts.TodoWrapperContract
+import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperWebTodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
+import com.example.viniciusalbuquerque.todotest.interactors.TodoWrapperInteractor
 import com.example.viniciusalbuquerque.todotest.models.adapters.ListOfTODOSAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.KEY_SHARED_PREFERENCES
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
@@ -24,34 +28,48 @@ import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestRepon
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse {
+class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContract.View {
 
     private val TAG = MainActivity::class.java.name
     private lateinit var todoWrappers : ArrayList<TODOWrapper>
-    private lateinit var requests: Requests
+    private lateinit var webRequests: WebRequests
     private lateinit var listOfTODOSAdapter : ListOfTODOSAdapter
     private lateinit var progressDialog : AlertDialog
+    private lateinit var presenter : TodoWrapperContract.Presenter
+
+    private lateinit var todoWrapperInteractor: TodoWrapperInteractor
+    private lateinit var todoWrapperWebTodoWrapperDAO: TodoWrapperWebTodoWrapperDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requests = Requests(this)
-        todoWrappers = getTodos()
-        listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers as ArrayList<TODOWrapper>, this)
+        webRequests = WebRequests(this)
+        todoWrappers = ArrayList()
+        listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers, this)
 
         recyclerViewListOfTODOS.adapter = listOfTODOSAdapter
         recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
 
         fabButtonConfig()
 
+        todoWrapperWebTodoWrapperDAO = TodoWrapperWebTodoWrapperDAO(this)
+
         progressDialog = MyProgressDialog().create(this, layoutInflater)
+
+        presenter = TodoWrapperPresenter(this, todoWrapperInteractor)
+
     }
 
     private fun fabButtonConfig() {
         fabNewTODOWrapper.setOnClickListener {
-            openAddNewToDoDialog()
+            presenter.fabAddTodoWrapperClicked()
+//            openAddNewToDoDialog()
         }
+    }
+
+    override fun showAddNewTodoWrapperDialog() {
+        openAddNewToDoDialog()
     }
 
     private fun openAddNewToDoDialog() {
@@ -59,7 +77,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
         addDialog.textTitle = "Register New List Of Tasks"
         addDialog.onClickListener = View.OnClickListener {
             val todoTitle = addDialog.editTextToDoText?.text.toString()
-            saveToDoWrapper(todoTitle)
+            presenter.addTodoWrapperDialogButtonClicked(todoTitle, todoWrapperWebTodoWrapperDAO)
+//            saveToDoWrapper(todoTitle)
             Log.i(TODOActivity::class.java.simpleName, "Register new ToDo Wrapper")
             addDialog.dismiss()
         }
@@ -67,26 +86,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
         addDialog.show(fragmentManager, addDialog.TAG)
     }
 
-    private fun saveToDoWrapper(todoTitle: String) {
-        val idTodoWrapper = if(todoWrappers.isEmpty()) 0 else todoWrappers.sortedBy { it.id }.last().id.plus(1)
-        val todoWrapper = TODOWrapper(idTodoWrapper)
-        todoWrapper.title = todoTitle
-
+    override fun finishAddingNewTodoWrapper(todoWrapper : TODOWrapper) {
         todoWrappers.add(todoWrapper)
         listOfTODOSAdapter.notifyDataSetChanged()
-
     }
+
+//    private fun saveToDoWrapper(todoTitle: String) {
+//        val idTodoWrapper = if(todoWrappers.isEmpty()) 0 else todoWrappers.sortedBy { it.id }.last().id.plus(1)
+//        val todoWrapper = TODOWrapper(idTodoWrapper, todoTitle)
+//
+//        todoWrappers.add(todoWrapper)
+//        listOfTODOSAdapter.notifyDataSetChanged()
+//
+//    }
 
 
     override fun onResume() {
         super.onResume()
         progressDialog.show()
-        requests.request(JSONObject(), URL_LIST_TODO, Request.Method.GET, this)
+        presenter.listTodoWrappers(todoWrapperWebTodoWrapperDAO)
     }
 
     override fun onPause() {
         super.onPause()
-        requests.requestQueue.cancelAll(URL_LIST_TODO)
+        webRequests.cancellRequestsForTAG(URL_LIST_TODO)
     }
 
     override fun onDestroy() {
@@ -105,48 +128,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnRequestReponse
         startActivity(intent)
     }
 
-    override fun onRequestSuccess(response: JSONObject) {
-        Log.i(TAG, response.toString())
-        progressDialog.dismiss()
-        //GET TODO WRAPPERS FROM JSON
-    }
-
-    override fun onRequestError(error: VolleyError) {
-        val message = if(error.message != null) error.message else "onRequestError"
-        Log.i(TAG, message)
-        progressDialog.dismiss()
-        MyAlertDialog().create(this, message = message!!).show()
-    }
-
-    private fun getTodos(): ArrayList<TODOWrapper> {
-        val todos = ArrayList<TODOWrapper>()
-//        val todoW1 = TODOWrapper(1L)
-//        todoW1.title = "22/05/2018"
-//
-//        val todos1 = ArrayList<TODO>()
-//        todos1.apply {
-//            this.add(TODO(1L,"Test 1"))
-//            this.add(TODO(2L, "Test 2"))
-//        }
-//
-//        todoW1.todoActivies = todos1
-//
-//        val todoW2 = TODOWrapper(2L)
-//        todoW2.title = "23/05/2018"
-//
-//        val todos2 = ArrayList<TODO>()
-//        todos2.apply {
-//            this.add(TODO(1L,"Test 3"))
-//            this.add(TODO(2L,"Test 4"))
-//        }
-//
-//        todoW2.todoActivies = todos2
-//
-//        todos.add(todoW1)
-//        todos.add(todoW2)
-
-        return todos
-    }
 }
 
 

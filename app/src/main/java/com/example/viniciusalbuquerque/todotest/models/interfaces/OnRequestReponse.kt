@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 interface OnRequestReponse {
 
-    fun onRequestSuccess(response:JSONObject)
-    fun onRequestError(error: VolleyError)
+    fun onRequestSuccess(response: Any)
+    fun onRequestError(error: Any)
 
 }

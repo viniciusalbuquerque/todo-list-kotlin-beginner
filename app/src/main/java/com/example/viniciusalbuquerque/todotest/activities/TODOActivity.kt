@@ -1,17 +1,14 @@
 package com.example.viniciusalbuquerque.todotest.activities
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.example.viniciusalbuquerque.todotest.R
-import com.example.viniciusalbuquerque.todotest.Requests
+import com.example.viniciusalbuquerque.todotest.WebRequests
 import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.models.adapters.TODOAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.*
@@ -20,7 +17,7 @@ import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestM
 import kotlinx.android.synthetic.main.activity_todos.*
 import org.json.JSONObject
 
-const val INTENT_TODO = "INTENT_TODO_EXTRA";
+const val INTENT_TODO = "INTENT_TODO_EXTRA"
 class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods {
 
     private lateinit var listOfActivities: ArrayList<TODO>
@@ -88,20 +85,20 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
 
     override fun addTODO(todoWrapperID: Long, todoID: Long) {
         val json = getTODOJSON(todoWrapperID, todoID)
-        Requests(this).request(json, URL_ADD_TODO, Request.Method.PUT, this)
+        WebRequests(this).request(json, URL_ADD_TODO, Request.Method.PUT, this)
     }
 
     override fun removeTODO(todoWrapperID: Long, todoID: Long) {
         val json = getTODOJSON(todoWrapperID, todoID)
-        Requests(this).request(json, URL_REMOVE_TODO, Request.Method.POST, this)
+        WebRequests(this).request(json, URL_REMOVE_TODO, Request.Method.POST, this)
     }
 
-    override fun onRequestSuccess(response: JSONObject) {
+    override fun onRequestSuccess(response: Any) {
         Log.i("TODOActivity", response.toString()) //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onRequestError(error: VolleyError) {
-        Log.i("TODOAcVolleyError:", error.message)
+    override fun onRequestError(error: Any) {
+//        Log.i("TODOAcVolleyError:", error.message)
     }
 
     // region menu - commented
