@@ -12,4 +12,9 @@ interface OnTodoWrappersCallbacks {
         fun finishedAddingTodoWrapper(todoWrapper : TODOWrapper)
         fun finishedAddingTodoWrapperWithError(error: Any)
     }
+
+    interface Remove {
+        fun finishedRemovingTodoWrapper(message : String)
+        fun finishedRemovingTodoWrapperWithError(error: Any)
+    }
 }

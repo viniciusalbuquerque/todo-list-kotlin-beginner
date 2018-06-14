@@ -4,8 +4,9 @@ import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
+import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
-class AddTodoWrapperUserCase : OnRequestReponse {
+class AddTodoWrapperUserCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
 
     private var onAddTodoWrappersCallback : OnTodoWrappersCallbacks.Add? = null
     private var tempTodoWrapper : TODOWrapper? = null
@@ -18,7 +19,7 @@ class AddTodoWrapperUserCase : OnRequestReponse {
 
     override fun onRequestSuccess(response: Any) {
         // Parse to TodoWrapper
-        this.onAddTodoWrappersCallback?.finishedAddingTodoWrapper(tempTodoWrapper!!)
+        this.onAddTodoWrappersCallback?.finishedAddingTodoWrapper(todoWrapperParser.parseTodoWrapper(response))
 
     }
 

@@ -5,14 +5,15 @@ import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.interactors.TodoWrapperInteractor
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
+import com.example.viniciusalbuquerque.todotest.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUserCase
 import com.example.viniciusalbuquerque.todotest.usecases.ListTodoWrapperUseCase
 import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUserCase
 
-class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperDAO: TodoWrapperDAO) : TodoWrapperContract.Presenter,
-        OnTodoWrappersCallbacks.List, OnTodoWrappersCallbacks.Add {
+class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperDAO: TodoWrapperDAO, todoWrapperParser: Parser.TodoWrapperParser) : TodoWrapperContract.Presenter,
+        OnTodoWrappersCallbacks.List, OnTodoWrappersCallbacks.Add, OnTodoWrappersCallbacks.Remove {
 
-    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(), AddTodoWrapperUserCase(), RemoveTodoWrapperUserCase())
+    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(todoWrapperParser), AddTodoWrapperUserCase(todoWrapperParser), RemoveTodoWrapperUserCase(todoWrapperParser))
 
     override fun finishedAddingTodoWrapper(todoWrapper: TODOWrapper) {
         view.finishAddingNewTodoWrapper(todoWrapper)
@@ -43,7 +44,15 @@ class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperD
     }
 
     override fun deleteTodoWrapper(todoWrapper : TODOWrapper) {
-        todoWrapperInteractor.deleteTodoWrapper(todoWrapper, todoWrapperDAO)
+        todoWrapperInteractor.deleteTodoWrapper(todoWrapper, todoWrapperDAO, this)
+    }
+
+    override fun finishedRemovingTodoWrapper(message: String) {
+
+    }
+
+    override fun finishedRemovingTodoWrapperWithError(error: Any) {
+
     }
 
     override fun cancelRequestsFromDAO() {

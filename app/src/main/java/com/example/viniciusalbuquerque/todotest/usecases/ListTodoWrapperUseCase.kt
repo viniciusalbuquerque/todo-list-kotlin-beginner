@@ -3,8 +3,9 @@ package com.example.viniciusalbuquerque.todotest.usecases
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
+import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
-class ListTodoWrapperUseCase() : OnRequestReponse {
+class ListTodoWrapperUseCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
 
     private var onListTodoWrappersCallback : OnTodoWrappersCallbacks.List? = null
 
@@ -15,7 +16,7 @@ class ListTodoWrapperUseCase() : OnRequestReponse {
 
     override fun onRequestSuccess(response: Any) {
         //Parse response to a list of TODOWrappers
-        onListTodoWrappersCallback?.finishedLoadingList(ArrayList())
+        onListTodoWrappersCallback?.finishedLoadingList(todoWrapperParser.parseList(response))
     }
 
     override fun onRequestError(error: Any) {

@@ -17,8 +17,8 @@ class TodoWrapperInteractor(val listTodoWrapperUseCase: ListTodoWrapperUseCase, 
         listTodoWrapperUseCase.loadTodoWrappers(todoWrapperDAO, onTodoWrappersCallbacksList)
     }
 
-    fun deleteTodoWrapper(todoWrapper: TODOWrapper, todoWrapperDAO: TodoWrapperDAO) {
-        removeTodoWrapperUserCase.removeTodoWrapper(todoWrapper, todoWrapperDAO)
+    fun deleteTodoWrapper(todoWrapper: TODOWrapper, todoWrapperDAO: TodoWrapperDAO, onRemoveTodoWrappersCallbacks: OnTodoWrappersCallbacks.Remove) {
+        removeTodoWrapperUserCase.removeTodoWrapper(todoWrapper, todoWrapperDAO, onRemoveTodoWrappersCallbacks)
     }
 
 }
