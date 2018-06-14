@@ -32,19 +32,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
 
     private val TAG = MainActivity::class.java.name
     private lateinit var todoWrappers : ArrayList<TODOWrapper>
-    private lateinit var webRequests: WebRequests
     private lateinit var listOfTODOSAdapter : ListOfTODOSAdapter
     private lateinit var progressDialog : AlertDialog
     private lateinit var presenter : TodoWrapperContract.Presenter
 
-    private lateinit var todoWrapperInteractor: TodoWrapperInteractor
     private lateinit var todoWrapperWebTodoWrapperDAO: TodoWrapperWebTodoWrapperDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        webRequests = WebRequests(this)
         todoWrappers = ArrayList()
         listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers, this)
 
@@ -52,19 +49,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
 
         fabButtonConfig()
-
-        todoWrapperWebTodoWrapperDAO = TodoWrapperWebTodoWrapperDAO(this)
-
         progressDialog = MyProgressDialog().create(this, layoutInflater)
 
-        presenter = TodoWrapperPresenter(this, todoWrapperInteractor)
+        todoWrapperWebTodoWrapperDAO = TodoWrapperWebTodoWrapperDAO(this)
+        presenter = TodoWrapperPresenter(this, todoWrapperWebTodoWrapperDAO)
 
     }
 
     private fun fabButtonConfig() {
         fabNewTODOWrapper.setOnClickListener {
             presenter.fabAddTodoWrapperClicked()
-//            openAddNewToDoDialog()
         }
     }
 
@@ -77,8 +71,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         addDialog.textTitle = "Register New List Of Tasks"
         addDialog.onClickListener = View.OnClickListener {
             val todoTitle = addDialog.editTextToDoText?.text.toString()
-            presenter.addTodoWrapperDialogButtonClicked(todoTitle, todoWrapperWebTodoWrapperDAO)
-//            saveToDoWrapper(todoTitle)
+            presenter.addTodoWrapperDialogButtonClicked(todoTitle)
             Log.i(TODOActivity::class.java.simpleName, "Register new ToDo Wrapper")
             addDialog.dismiss()
         }
@@ -91,31 +84,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         listOfTODOSAdapter.notifyDataSetChanged()
     }
 
-//    private fun saveToDoWrapper(todoTitle: String) {
-//        val idTodoWrapper = if(todoWrappers.isEmpty()) 0 else todoWrappers.sortedBy { it.id }.last().id.plus(1)
-//        val todoWrapper = TODOWrapper(idTodoWrapper, todoTitle)
-//
-//        todoWrappers.add(todoWrapper)
-//        listOfTODOSAdapter.notifyDataSetChanged()
-//
-//    }
+    override fun finishAddingNewTodoWrapperWithError(error: Any) {
+        //Show error
+    }
 
+    override fun finishLoadingList(todoWrappers: ArrayList<TODOWrapper>) {
+        this.todoWrappers = todoWrappers
+        listOfTODOSAdapter.notifyDataSetChanged()
+    }
+
+    override fun finishLoadingListWithError(error: Any) {
+        //Show error
+    }
 
     override fun onResume() {
         super.onResume()
         progressDialog.show()
-        presenter.listTodoWrappers(todoWrapperWebTodoWrapperDAO)
+        presenter.listTodoWrappers()
     }
 
     override fun onPause() {
         super.onPause()
-        webRequests.cancellRequestsForTAG(URL_LIST_TODO)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val sharedPreferences: SharedPreferences = getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        sharedPreferences.edit().clear().apply()
+        presenter.cancelRequestsFromDAO()
     }
 
     override fun onClick(v: View?) {

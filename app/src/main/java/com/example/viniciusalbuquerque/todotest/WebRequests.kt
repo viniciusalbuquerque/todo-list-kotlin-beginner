@@ -1,19 +1,11 @@
 package com.example.viniciusalbuquerque.todotest
 
 import android.content.Context
-import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.JsonRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.viniciusalbuquerque.todotest.models.classes.TODO
-import com.example.viniciusalbuquerque.todotest.models.classes.URL_LIST_TODO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnResponseCallback
-import com.example.viniciusalbuquerque.todotest.models.interfaces.Requests
 import org.json.JSONObject
 
 class WebRequests(context: Context) {
@@ -36,4 +28,5 @@ class WebRequests(context: Context) {
     fun cancellRequestsForTAG(REQUEST_TAG: String) {
         requestQueue.cancelAll(REQUEST_TAG)
     }
+
 }

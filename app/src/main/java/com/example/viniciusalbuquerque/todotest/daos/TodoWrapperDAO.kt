@@ -8,4 +8,6 @@ interface TodoWrapperDAO {
     fun read(onRequestReponse: OnRequestReponse)
     fun update(todoWrapper: TODOWrapper, onRequestReponse: OnRequestReponse)
     fun delete(todoWrapper: TODOWrapper, onRequestReponse: OnRequestReponse)
+
+    fun cancelRequests()
 }

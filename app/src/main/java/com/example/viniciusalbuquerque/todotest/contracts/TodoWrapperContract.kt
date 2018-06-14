@@ -8,12 +8,16 @@ interface TodoWrapperContract {
     interface View {
         fun showAddNewTodoWrapperDialog()
         fun finishAddingNewTodoWrapper(todoWrapper : TODOWrapper)
+        fun finishAddingNewTodoWrapperWithError(error: Any)
+        fun finishLoadingList(todoWrappers : ArrayList<TODOWrapper>)
+        fun finishLoadingListWithError(error : Any)
     }
 
     interface Presenter {
         fun fabAddTodoWrapperClicked()
-        fun addTodoWrapperDialogButtonClicked(todoWrapperTitle : String, todoWrapperDAO: TodoWrapperDAO)
-        fun listTodoWrappers(todoWrapperDAO: TodoWrapperDAO)
-        fun deleteTodoWrapper(todoWrapper: TODOWrapper, todoWrapperDAO: TodoWrapperDAO)
+        fun addTodoWrapperDialogButtonClicked(todoWrapperTitle : String)
+        fun listTodoWrappers()
+        fun deleteTodoWrapper(todoWrapper: TODOWrapper)
+        fun cancelRequestsFromDAO()
     }
 }
