@@ -12,7 +12,7 @@ import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUserCa
 class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperDAO: TodoWrapperDAO) : TodoWrapperContract.Presenter,
         OnTodoWrappersCallbacks.List, OnTodoWrappersCallbacks.Add {
 
-    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(this), AddTodoWrapperUserCase(), RemoveTodoWrapperUserCase())
+    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(), AddTodoWrapperUserCase(), RemoveTodoWrapperUserCase())
 
     override fun finishedAddingTodoWrapper(todoWrapper: TODOWrapper) {
         view.finishAddingNewTodoWrapper(todoWrapper)
@@ -23,7 +23,7 @@ class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperD
     }
 
     override fun addTodoWrapperDialogButtonClicked(todoWrapperTitle : String) {
-        todoWrapperInteractor.addNewTodoWrapper(todoWrapperTitle, todoWrapperDAO)
+        todoWrapperInteractor.addNewTodoWrapper(todoWrapperTitle, todoWrapperDAO, this)
     }
 
     override fun fabAddTodoWrapperClicked() {
@@ -31,7 +31,7 @@ class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperD
     }
 
     override fun listTodoWrappers() {
-        todoWrapperInteractor.listTodoWrappers(todoWrapperDAO)
+        todoWrapperInteractor.listTodoWrappers(todoWrapperDAO, this)
     }
 
     override fun finishedLoadingList(todoWrappers : ArrayList<TODOWrapper>) {
