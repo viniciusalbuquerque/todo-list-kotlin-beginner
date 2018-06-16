@@ -12,7 +12,7 @@ class TodoWrapperJSONParser : Parser.TodoWrapperParser {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun parseRemove(response: Any): String {
+    override fun parseRemove(response: Any): TODOWrapper {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

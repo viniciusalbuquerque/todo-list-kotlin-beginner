@@ -10,6 +10,8 @@ interface TodoWrapperContract {
         fun finishAddingNewTodoWrapperWithError(error: Any)
         fun finishLoadingList(todoWrappers : ArrayList<TODOWrapper>)
         fun finishLoadingListWithError(error : Any)
+        fun finishedRemovingTodoWrapper(todoWrapper: TODOWrapper)
+        fun finishedRemovingTodoWrapperWithError(error: Any)
     }
 
     interface Presenter {

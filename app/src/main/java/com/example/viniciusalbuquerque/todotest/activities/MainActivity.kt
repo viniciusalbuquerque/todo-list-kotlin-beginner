@@ -74,20 +74,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
     }
 
     override fun finishAddingNewTodoWrapper(todoWrapper : TODOWrapper) {
+        progressDialog.dismiss()
         todoWrappers.add(todoWrapper)
         listOfTODOSAdapter.notifyDataSetChanged()
     }
 
     override fun finishAddingNewTodoWrapperWithError(error: Any) {
+        progressDialog.dismiss()
         //Show error
     }
 
     override fun finishLoadingList(todoWrappers: ArrayList<TODOWrapper>) {
+        progressDialog.dismiss()
         this.todoWrappers = todoWrappers
         listOfTODOSAdapter.notifyDataSetChanged()
     }
 
     override fun finishLoadingListWithError(error: Any) {
+        //Show error
+        progressDialog.dismiss()
+    }
+
+    override fun finishedRemovingTodoWrapper(todoWrapper: TODOWrapper) {
+        progressDialog.dismiss()
+        this.todoWrappers.remove(todoWrapper)
+        this.listOfTODOSAdapter.notifyDataSetChanged()
+    }
+
+    override fun finishedRemovingTodoWrapperWithError(error: Any) {
+        progressDialog.dismiss()
         //Show error
     }
 

@@ -47,12 +47,12 @@ class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperD
         todoWrapperInteractor.deleteTodoWrapper(todoWrapper, todoWrapperDAO, this)
     }
 
-    override fun finishedRemovingTodoWrapper(message: String) {
-
+    override fun finishedRemovingTodoWrapper(todoWrapper: TODOWrapper) {
+        view.finishedRemovingTodoWrapper(todoWrapper)
     }
 
     override fun finishedRemovingTodoWrapperWithError(error: Any) {
-
+        view.finishLoadingListWithError(error)
     }
 
     override fun cancelRequestsFromDAO() {

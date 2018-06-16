@@ -7,7 +7,7 @@ interface Parser {
     interface TodoWrapperParser {
         fun parseList(response : Any) : ArrayList<TODOWrapper>
         fun parseTodoWrapper(response: Any) : TODOWrapper
-        fun parseRemove(response: Any) : String //Message of success?
+        fun parseRemove(response: Any) : TODOWrapper
     }
 
 
