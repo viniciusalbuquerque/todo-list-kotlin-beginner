@@ -6,7 +6,7 @@ import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestRepon
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
-class AddTodoWrapperUserCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
+class AddTodoWrapperUseCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
 
     private var onAddTodoWrappersCallback : OnTodoWrappersCallbacks.Add? = null
     private var tempTodoWrapper : TODOWrapper? = null

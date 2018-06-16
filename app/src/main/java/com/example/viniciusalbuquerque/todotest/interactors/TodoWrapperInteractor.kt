@@ -3,14 +3,14 @@ package com.example.viniciusalbuquerque.todotest.interactors
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
-import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUserCase
+import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUseCase
 import com.example.viniciusalbuquerque.todotest.usecases.ListTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUserCase
+import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUseCase
 
-class TodoWrapperInteractor(val listTodoWrapperUseCase: ListTodoWrapperUseCase, val addTodoWrapperUserCase: AddTodoWrapperUserCase, val removeTodoWrapperUserCase: RemoveTodoWrapperUserCase) {
+class TodoWrapperInteractor(val listTodoWrapperUseCase: ListTodoWrapperUseCase, val addTodoWrapperUseCase: AddTodoWrapperUseCase, val removeTodoWrapperUseCase: RemoveTodoWrapperUseCase) {
 
     fun addNewTodoWrapper(todoWrapperTitle : String, todoWrapperDAO: TodoWrapperDAO, onAddTodoWrappersCallbacks: OnTodoWrappersCallbacks.Add) {
-        addTodoWrapperUserCase.addTodoWrapper(todoWrapperTitle, todoWrapperDAO, onAddTodoWrappersCallbacks)
+        addTodoWrapperUseCase.addTodoWrapper(todoWrapperTitle, todoWrapperDAO, onAddTodoWrappersCallbacks)
     }
 
     fun listTodoWrappers(todoWrapperDAO: TodoWrapperDAO, onTodoWrappersCallbacksList: OnTodoWrappersCallbacks.List) {
@@ -18,7 +18,7 @@ class TodoWrapperInteractor(val listTodoWrapperUseCase: ListTodoWrapperUseCase, 
     }
 
     fun deleteTodoWrapper(todoWrapper: TODOWrapper, todoWrapperDAO: TodoWrapperDAO, onRemoveTodoWrappersCallbacks: OnTodoWrappersCallbacks.Remove) {
-        removeTodoWrapperUserCase.removeTodoWrapper(todoWrapper, todoWrapperDAO, onRemoveTodoWrappersCallbacks)
+        removeTodoWrapperUseCase.removeTodoWrapper(todoWrapper, todoWrapperDAO, onRemoveTodoWrappersCallbacks)
     }
 
 }

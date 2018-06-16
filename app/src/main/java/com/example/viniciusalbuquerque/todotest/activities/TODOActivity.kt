@@ -8,21 +8,25 @@ import android.view.View
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.example.viniciusalbuquerque.todotest.R
+import com.example.viniciusalbuquerque.todotest.R.id.*
 import com.example.viniciusalbuquerque.todotest.WebRequests
+import com.example.viniciusalbuquerque.todotest.contracts.TodoContract
 import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.models.adapters.TODOAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.*
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestMethods
+import com.example.viniciusalbuquerque.todotest.presenters.TodoPresenter
 import kotlinx.android.synthetic.main.activity_todos.*
 import org.json.JSONObject
 
 const val INTENT_TODO = "INTENT_TODO_EXTRA"
-class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods {
+class TODOActivity : AppCompatActivity(), OnTODORequestMethods, TodoContract.View {
 
     private lateinit var listOfActivities: ArrayList<TODO>
     private lateinit var todoWrapper : TODOWrapper
     private lateinit var adapter : TODOAdapter
+    private lateinit var presenter : TodoPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +40,14 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
         Log.i(TODOActivity::class.java.simpleName, todoWrapper.title)
 
         configLayout()
+        fabButtonConfig()
+
+        presenter = TodoPresenter(this)
+    }
+
+    private fun fabButtonConfig() {
         fabNewTODO.setOnClickListener {
-            openAddNewToDoDialog()
+            presenter.fabAddTodoClicked()
         }
     }
 
@@ -45,19 +55,11 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
         val addDialog = AddToDoDialogFragment()
         addDialog.onClickListener = View.OnClickListener {
             val todoTitle = addDialog.editTextToDoText?.text.toString()
-            saveToDo(todoTitle)
+            presenter.addTodoDialogButtonClicked(todoWrapper.id, todoTitle)
             Log.i(TODOActivity::class.java.simpleName, "Register new ToDo")
             addDialog.dismiss()
         }
-
         addDialog.show(fragmentManager, addDialog.TAG)
-    }
-
-    private fun saveToDo(todoTitle: String) {
-        val _ID = if(listOfActivities.isEmpty()) 0 else listOfActivities.sortedBy { it.id }.last().id.plus(1)
-        val todo = TODO(_ID, todoTitle)
-        listOfActivities.add(todo)
-        adapter.notifyDataSetChanged()
     }
 
     private fun configLayout() {
@@ -76,45 +78,33 @@ class TODOActivity : AppCompatActivity(), OnRequestReponse, OnTODORequestMethods
         return intent.extras.get(INTENT_TODO) as TODOWrapper
     }
 
-    fun getTODOJSON(todoWrapperID: Long, todoID: Long) : JSONObject {
-        val json = JSONObject()
-        json.put(KEY_PARAM_TODO_WRAPPER_ID, todoWrapperID)
-        json.put(KEY_PARAM_TODO_ID, todoID)
-        return json
+    override fun showAddNewTodoDialog() {
+        openAddNewToDoDialog()
+    }
+
+    override fun finishedAddingTodo(todo: TODO) {
+        listOfActivities.add(todo)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun finishedAddingTodoWithError(error: Any) {
+        //Show error
+    }
+
+    override fun finishedRemovingTodo(todo: TODO) {
+        listOfActivities.remove(todo)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun finishedRemovingTodoWithError(error: Any) {
+        //Show error
     }
 
     override fun addTODO(todoWrapperID: Long, todoID: Long) {
-        val json = getTODOJSON(todoWrapperID, todoID)
-        WebRequests(this).request(json, URL_ADD_TODO, Request.Method.PUT, this)
+        presenter.updateTodo(todoWrapperID, todoID, true)
     }
 
     override fun removeTODO(todoWrapperID: Long, todoID: Long) {
-        val json = getTODOJSON(todoWrapperID, todoID)
-        WebRequests(this).request(json, URL_REMOVE_TODO, Request.Method.POST, this)
+        presenter.updateTodo(todoWrapperID, todoID, false)
     }
-
-    override fun onRequestSuccess(response: Any) {
-        Log.i("TODOActivity", response.toString()) //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onRequestError(error: Any) {
-//        Log.i("TODOAcVolleyError:", error.message)
-    }
-
-    // region menu - commented
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        val menuInflater = getMenuInflater()
-//        menuInflater.inflate(R.menu.toolbar_menu, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        when(item!!.itemId) {
-//            R.id.menu_action_add -> {
-//                openAddNewToDoDialog()
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-//endregion
 }

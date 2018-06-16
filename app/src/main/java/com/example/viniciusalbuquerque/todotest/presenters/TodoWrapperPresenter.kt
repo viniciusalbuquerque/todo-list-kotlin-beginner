@@ -6,14 +6,14 @@ import com.example.viniciusalbuquerque.todotest.interactors.TodoWrapperInteracto
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.parsers.Parser
-import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUserCase
+import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUseCase
 import com.example.viniciusalbuquerque.todotest.usecases.ListTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUserCase
+import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUseCase
 
 class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperDAO: TodoWrapperDAO, todoWrapperParser: Parser.TodoWrapperParser) : TodoWrapperContract.Presenter,
         OnTodoWrappersCallbacks.List, OnTodoWrappersCallbacks.Add, OnTodoWrappersCallbacks.Remove {
 
-    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(todoWrapperParser), AddTodoWrapperUserCase(todoWrapperParser), RemoveTodoWrapperUserCase(todoWrapperParser))
+    private val todoWrapperInteractor : TodoWrapperInteractor = TodoWrapperInteractor(ListTodoWrapperUseCase(todoWrapperParser), AddTodoWrapperUseCase(todoWrapperParser), RemoveTodoWrapperUseCase(todoWrapperParser))
 
     override fun finishedAddingTodoWrapper(todoWrapper: TODOWrapper) {
         view.finishAddingNewTodoWrapper(todoWrapper)

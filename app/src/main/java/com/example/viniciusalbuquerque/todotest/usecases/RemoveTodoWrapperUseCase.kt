@@ -6,7 +6,7 @@ import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestRepon
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
-class RemoveTodoWrapperUserCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
+class RemoveTodoWrapperUseCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
 
     private var onRemoveTodoWrappersCallbacks : OnTodoWrappersCallbacks.Remove? = null
 
