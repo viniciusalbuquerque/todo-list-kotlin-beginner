@@ -28,7 +28,7 @@ class TodoPresenter(val view : TodoContract.View) : TodoContract.Presenter {
     }
 
     override fun updateTodo(todoWrapperId: Long, todoId: Long, done: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        interactor.updateTodo(todoId, todoWrapperId, done)
     }
 
 }
