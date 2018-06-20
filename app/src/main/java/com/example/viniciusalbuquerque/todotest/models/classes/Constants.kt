@@ -8,6 +8,7 @@ const val SERVER_HOST = "http://$SERVER_IP:$SERVER_PORT"
 const val URL_ADD_TODO = "$SERVER_HOST/todo/add"
 const val URL_REMOVE_TODO = "$SERVER_HOST/todo/rem"
 const val URL_LIST_TODO = "$SERVER_HOST/todo/list"
+const val URL_UPDATE_TODO = "$SERVER_HOST/todo/update"
 
 // Check the URLs
 const val URL_ADD_TODO_WRAPPER = "$SERVER_HOST/todo/add"
