@@ -1,11 +1,14 @@
 package com.example.viniciusalbuquerque.todotest.usecases
 
+import com.example.viniciusalbuquerque.todotest.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoCallbacks
+import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
-class AddTodoUseCase : OnRequestReponse {
+class AddTodoUseCase(val parser: Parser.TodoParser) : OnRequestReponse {
 
 
-    fun addTodo(title : String) {
+    fun addTodo(todoWrapperId: Long, todoTitle : String, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Add) {
 
     }
 

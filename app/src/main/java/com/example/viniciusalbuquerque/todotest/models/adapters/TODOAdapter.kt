@@ -36,12 +36,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
         holder.hCheckBox.isChecked = todo.isDone
 
         holder.hCheckBox.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-            if(isChecked) {
-                onTODORequestMethods.addTODO(todoWrapperId, todoID)
-            } else {
-                onTODORequestMethods.removeTODO(todoWrapperId, todoID)
-            }
-
+            onTODORequestMethods.update(todoWrapperId, todoID, isChecked)
         }
     }
 

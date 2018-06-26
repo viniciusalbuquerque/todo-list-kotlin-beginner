@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
             addDialog.dismiss()
         }
 
-        addDialog.show(fragmentManager, addDialog.TAG)
+        addDialog.show(supportFragmentManager, addDialog.TAG)
     }
 
     override fun finishAddingNewTodoWrapper(todoWrapper : TODOWrapper) {

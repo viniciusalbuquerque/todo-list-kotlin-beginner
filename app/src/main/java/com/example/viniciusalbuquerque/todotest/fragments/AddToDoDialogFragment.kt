@@ -1,8 +1,9 @@
 package com.example.viniciusalbuquerque.todotest.fragments
 
 import android.app.Dialog
-import android.app.DialogFragment
+
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,13 @@ class AddToDoDialogFragment() : DialogFragment() {
         return dialog
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater!!.inflate(R.layout.dialog_new_todo, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.dialog_new_todo, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val buttonAdd = view.findViewById<Button>(R.id.dialog_new_todo_button_add)
         val buttonCancel = view.findViewById<Button>(R.id.dialog_new_todo_button_cancel)
         editTextToDoText = view.findViewById(R.id.dialog_new_todo_edittext_todo)
@@ -38,11 +44,9 @@ class AddToDoDialogFragment() : DialogFragment() {
         }
 
         buttonAdd.setOnClickListener(onClickListener)
-        buttonCancel.setOnClickListener({
+        buttonCancel.setOnClickListener {
             this.dismiss()
-        })
-        return view
+        }
     }
-
 
 }

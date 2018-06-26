@@ -11,13 +11,15 @@ interface TodoContract {
         fun finishedAddingTodoWithError(error : Any)
         fun finishedRemovingTodo(todo: TODO)
         fun finishedRemovingTodoWithError(error: Any)
+        fun finishedUpdating(todo: TODO)
+        fun finishedUpdatingWithError(error: Any)
 
     }
 
     interface Presenter {
         fun fabAddTodoClicked()
         fun addTodoDialogButtonClicked(todoWrapperId : Long, todoTitle : String)
-        fun deleteTodo(todoWrapper: TODOWrapper)
+        fun deleteTodo(todoWrapperId: Long, todoId: Long)
         fun cancelRequestsFromDAO()
         fun updateTodo(todoWrapperId: Long, todoId: Long, done : Boolean)
     }
