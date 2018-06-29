@@ -10,7 +10,7 @@ import org.json.JSONObject
 class TodoWebDAO(context: Context) : TodoDAO {
     private var webRequest : WebRequests = WebRequests(context)
 
-    override fun create(todo: TODO, onRequestReponse: OnRequestReponse) {
+    override fun create(todoWrapperId: Long, todoTitle: String, onRequestReponse: OnRequestReponse) {
         webRequest.request(JSONObject(), URL_ADD_TODO, Request.Method.PUT, onRequestReponse)
     }
 

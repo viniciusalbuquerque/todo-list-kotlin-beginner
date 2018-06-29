@@ -7,17 +7,19 @@ import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
 class AddTodoUseCase(val parser: Parser.TodoParser) : OnRequestReponse {
 
+    private var onTodoCallbacks : OnTodoCallbacks.Add? = null
 
     fun addTodo(todoWrapperId: Long, todoTitle : String, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Add) {
-
+        this.onTodoCallbacks = onTodoCallbacks
+        todoDAO.create(todoWrapperId, todoTitle, this)
     }
 
     override fun onRequestSuccess(response: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.onTodoCallbacks?.finishedAddingTodo(parser.parseTodo(response))
     }
 
     override fun onRequestError(error: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.onTodoCallbacks?.finishedAddingTodoError(parser.parseTodo(error))
     }
 
 }

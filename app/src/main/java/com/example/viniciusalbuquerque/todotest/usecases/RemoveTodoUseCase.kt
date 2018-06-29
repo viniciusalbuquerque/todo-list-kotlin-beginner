@@ -7,16 +7,18 @@ import com.example.viniciusalbuquerque.todotest.parsers.Parser
 
 class RemoveTodoUseCase(val parser: Parser.TodoParser) : OnRequestReponse {
 
+    private var onTodoCallbacks : OnTodoCallbacks.Remove? = null
+
     fun removeTodo(todoId : Long, todoWrapperId : Long, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Remove) {
-        
+        this.onTodoCallbacks = onTodoCallbacks
     }
 
     override fun onRequestSuccess(response: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.onTodoCallbacks?.finishedRemovingTodo(parser.parseRemove(response))
     }
 
     override fun onRequestError(error: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.onTodoCallbacks?.finishedRemovingTodoWithError(parser.parseRemove(error))
     }
 
 }
