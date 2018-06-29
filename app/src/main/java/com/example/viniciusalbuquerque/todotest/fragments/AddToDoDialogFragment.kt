@@ -13,7 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.viniciusalbuquerque.todotest.R
 
-class AddToDoDialogFragment() : DialogFragment() {
+class AddToDoDialogFragment : DialogFragment() {
 
     val TAG : String = "AddToDoDialogFragment"
     var onClickListener: View.OnClickListener? = null

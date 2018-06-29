@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
     }
 
     override fun finishLoadingListWithError(error: Any) {
-        //Show error
         progressDialog.dismiss()
+        //Show error
     }
 
     override fun finishedRemovingTodoWrapper(todoWrapper: TODOWrapper) {

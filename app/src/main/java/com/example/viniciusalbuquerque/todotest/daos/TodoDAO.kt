@@ -6,8 +6,8 @@ import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestRepon
 interface TodoDAO {
     fun create(todoWrapperId: Long, todoTitle: String, onRequestReponse: OnRequestReponse)
     fun read(onRequestReponse: OnRequestReponse)
-    fun update(todoId: Long, todoWrapperId: Long, done: Boolean, onRequestReponse: OnRequestReponse)
-    fun delete(todo: TODO, onRequestReponse: OnRequestReponse)
+    fun update(todoWrapperId: Long, todoId: Long, done: Boolean, onRequestReponse: OnRequestReponse)
+    fun delete(todoWrapperId: Long, todoId: Long, onRequestReponse: OnRequestReponse)
 
     fun cancelRequests()
 }

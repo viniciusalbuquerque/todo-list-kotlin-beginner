@@ -18,11 +18,11 @@ class TodoWebDAO(context: Context) : TodoDAO {
         //nothing yet
     }
 
-    override fun update(todoId: Long, todoWrapperId: Long, done: Boolean, onRequestReponse: OnRequestReponse) {
+    override fun update(todoWrapperId: Long, todoId: Long, done: Boolean, onRequestReponse: OnRequestReponse) {
         webRequest.request(JSONObject(), URL_UPDATE_TODO, Request.Method.POST, onRequestReponse)
     }
 
-    override fun delete(todo: TODO, onRequestReponse: OnRequestReponse) {
+    override fun delete(todoWrapperId: Long, todoId: Long, onRequestReponse: OnRequestReponse) {
         webRequest.request(JSONObject(), URL_REMOVE_TODO, Request.Method.DELETE, onRequestReponse)
     }
 

@@ -9,7 +9,7 @@ import com.example.viniciusalbuquerque.todotest.usecases.UpdateTodoUseCase
 class TodoInteractor (val addTodoUseCase: AddTodoUseCase, val removeTodoUseCase: RemoveTodoUseCase, val updateTodoUseCase: UpdateTodoUseCase) {
 
     fun updateTodo(todoId: Long, todoWrapperId: Long, done: Boolean, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Update) {
-        updateTodoUseCase.updateTodo(todoId, todoWrapperId, done, todoDAO, onTodoCallbacks)
+        updateTodoUseCase.updateTodo(todoWrapperId, todoId, done, todoDAO, onTodoCallbacks)
     }
 
     fun addTodo(todoWrapperId: Long, todoTitle: String, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Add) {

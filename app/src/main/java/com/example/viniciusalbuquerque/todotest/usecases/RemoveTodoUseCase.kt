@@ -9,8 +9,9 @@ class RemoveTodoUseCase(val parser: Parser.TodoParser) : OnRequestReponse {
 
     private var onTodoCallbacks : OnTodoCallbacks.Remove? = null
 
-    fun removeTodo(todoId : Long, todoWrapperId : Long, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Remove) {
+    fun removeTodo(todoWrapperId : Long, todoId : Long, todoDAO: TodoDAO, onTodoCallbacks: OnTodoCallbacks.Remove) {
         this.onTodoCallbacks = onTodoCallbacks
+        todoDAO.delete(todoWrapperId, todoId, this)
     }
 
     override fun onRequestSuccess(response: Any) {

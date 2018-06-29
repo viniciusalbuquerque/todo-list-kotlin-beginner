@@ -9,9 +9,9 @@ class UpdateTodoUseCase(val todoWrapperParser: Parser.TodoParser) : OnRequestRep
 
     private var onUpdateTodoCallbacks : OnTodoCallbacks.Update? = null
 
-    fun updateTodo(todoId : Long, todoWrapperId : Long, done : Boolean, todoDAO: TodoDAO, onUpdateTodoCallbacks: OnTodoCallbacks.Update) {
+    fun updateTodo(todoWrapperId : Long, todoId: Long, done : Boolean, todoDAO: TodoDAO, onUpdateTodoCallbacks: OnTodoCallbacks.Update) {
         this.onUpdateTodoCallbacks = onUpdateTodoCallbacks
-        todoDAO.update(todoId, todoWrapperId, done, this)
+        todoDAO.update(todoWrapperId, todoId, done, this)
     }
 
     override fun onRequestSuccess(response: Any) {
