@@ -8,14 +8,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.example.viniciusalbuquerque.todotest.R
-import com.example.viniciusalbuquerque.todotest.contracts.TodoWrapperContract
-import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperWebTodoWrapperDAO
+import com.example.viniciusalbuquerque.todotest.presenters.contracts.TodoWrapperContract
+import com.example.viniciusalbuquerque.todotest.environment.daos.TodoWrapperWebTodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.environment.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.environment.adapters.ListOfTODOSAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.environment.dialogs.MyProgressDialog
-import com.example.viniciusalbuquerque.todotest.parsers.Parser
-import com.example.viniciusalbuquerque.todotest.parsers.TodoWrapperJSONParser
+import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
+import com.example.viniciusalbuquerque.todotest.environment.parsers.TodoWrapperJSONParser
 import com.example.viniciusalbuquerque.todotest.presenters.TodoWrapperPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 

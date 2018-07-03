@@ -1,4 +1,4 @@
-package com.example.viniciusalbuquerque.todotest.parsers
+package com.example.viniciusalbuquerque.todotest.domain.parsers
 
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper

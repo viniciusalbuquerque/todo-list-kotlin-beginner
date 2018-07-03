@@ -1,6 +1,5 @@
-package com.example.viniciusalbuquerque.todotest.daos
+package com.example.viniciusalbuquerque.todotest.domain.daos
 
-import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 
 interface TodoDAO {

@@ -1,6 +1,6 @@
 package com.example.viniciusalbuquerque.todotest.domain.interactors
 
-import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
+import com.example.viniciusalbuquerque.todotest.domain.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoWrapperUseCase

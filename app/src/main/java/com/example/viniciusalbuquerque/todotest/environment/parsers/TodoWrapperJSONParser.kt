@@ -1,5 +1,6 @@
-package com.example.viniciusalbuquerque.todotest.parsers
+package com.example.viniciusalbuquerque.todotest.environment.parsers
 
+import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 
 class TodoWrapperJSONParser : Parser.TodoWrapperParser {

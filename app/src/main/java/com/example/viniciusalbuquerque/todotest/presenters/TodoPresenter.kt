@@ -1,11 +1,11 @@
 package com.example.viniciusalbuquerque.todotest.presenters
 
-import com.example.viniciusalbuquerque.todotest.contracts.TodoContract
-import com.example.viniciusalbuquerque.todotest.daos.TodoDAO
+import com.example.viniciusalbuquerque.todotest.presenters.contracts.TodoContract
+import com.example.viniciusalbuquerque.todotest.domain.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.domain.interactors.TodoInteractor
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoCallbacks
-import com.example.viniciusalbuquerque.todotest.parsers.Parser
+import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.UpdateTodoUseCase

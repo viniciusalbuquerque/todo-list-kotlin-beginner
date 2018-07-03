@@ -1,8 +1,9 @@
-package com.example.viniciusalbuquerque.todotest.daos
+package com.example.viniciusalbuquerque.todotest.environment.daos
 
 import android.content.Context
 import com.android.volley.Request
-import com.example.viniciusalbuquerque.todotest.WebRequests
+import com.example.viniciusalbuquerque.todotest.environment.WebRequests
+import com.example.viniciusalbuquerque.todotest.domain.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.*
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import org.json.JSONObject

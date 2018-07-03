@@ -1,7 +1,6 @@
-package com.example.viniciusalbuquerque.todotest.contracts
+package com.example.viniciusalbuquerque.todotest.presenters.contracts
 
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
-import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 
 interface TodoContract {
 

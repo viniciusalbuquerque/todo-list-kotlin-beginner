@@ -1,10 +1,10 @@
 package com.example.viniciusalbuquerque.todotest.domain.usecases
 
-import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
+import com.example.viniciusalbuquerque.todotest.domain.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
-import com.example.viniciusalbuquerque.todotest.parsers.Parser
+import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 
 class AddTodoWrapperUseCase(val todoWrapperParser: Parser.TodoWrapperParser) : OnRequestReponse {
 
