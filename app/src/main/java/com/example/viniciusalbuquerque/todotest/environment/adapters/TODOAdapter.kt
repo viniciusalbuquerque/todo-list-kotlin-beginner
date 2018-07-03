@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestMethods
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTODORequestMethods
 import kotlinx.android.synthetic.main.adapter_todo.view.*
 
 class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList : List<TODO>,

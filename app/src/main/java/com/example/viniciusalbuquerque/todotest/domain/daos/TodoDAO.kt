@@ -1,6 +1,6 @@
 package com.example.viniciusalbuquerque.todotest.domain.daos
 
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestReponse
 
 interface TodoDAO {
     fun create(todoWrapperId: Long, todoTitle: String, onRequestReponse: OnRequestReponse)

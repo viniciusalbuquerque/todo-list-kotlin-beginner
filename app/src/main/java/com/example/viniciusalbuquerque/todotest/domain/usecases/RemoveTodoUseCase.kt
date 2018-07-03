@@ -1,8 +1,8 @@
 package com.example.viniciusalbuquerque.todotest.domain.usecases
 
 import com.example.viniciusalbuquerque.todotest.domain.daos.TodoDAO
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoCallbacks
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTodoCallbacks
 import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 
 class RemoveTodoUseCase(val parser: Parser.TodoParser) : OnRequestReponse {

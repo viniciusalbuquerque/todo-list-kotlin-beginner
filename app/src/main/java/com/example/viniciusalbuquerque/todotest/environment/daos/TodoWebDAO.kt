@@ -5,7 +5,7 @@ import com.android.volley.Request
 import com.example.viniciusalbuquerque.todotest.environment.WebRequests
 import com.example.viniciusalbuquerque.todotest.domain.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.*
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestReponse
 import org.json.JSONObject
 
 class TodoWebDAO(context: Context) : TodoDAO {

@@ -4,7 +4,7 @@ import com.example.viniciusalbuquerque.todotest.presenters.contracts.TodoWrapper
 import com.example.viniciusalbuquerque.todotest.domain.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.domain.interactors.TodoWrapperInteractor
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoWrapperUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.ListTodoWrapperUseCase

@@ -5,7 +5,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestReponse
 import org.json.JSONObject
 
 class WebRequests(context: Context) {

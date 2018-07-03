@@ -1,7 +1,7 @@
 package com.example.viniciusalbuquerque.todotest.domain.interactors
 
 import com.example.viniciusalbuquerque.todotest.domain.daos.TodoDAO
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoCallbacks
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTodoCallbacks
 import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.UpdateTodoUseCase

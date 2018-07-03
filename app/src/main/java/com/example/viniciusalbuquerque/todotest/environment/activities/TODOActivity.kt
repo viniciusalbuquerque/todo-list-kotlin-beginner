@@ -11,7 +11,7 @@ import com.example.viniciusalbuquerque.todotest.environment.daos.TodoWebDAO
 import com.example.viniciusalbuquerque.todotest.environment.fragments.AddToDoDialogFragment
 import com.example.viniciusalbuquerque.todotest.environment.adapters.TODOAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.*
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestMethods
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTODORequestMethods
 import com.example.viniciusalbuquerque.todotest.environment.parsers.TodoJSONParser
 import com.example.viniciusalbuquerque.todotest.presenters.TodoPresenter
 import kotlinx.android.synthetic.main.activity_todos.*

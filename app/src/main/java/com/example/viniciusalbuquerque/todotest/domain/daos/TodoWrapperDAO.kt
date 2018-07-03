@@ -1,7 +1,7 @@
 package com.example.viniciusalbuquerque.todotest.domain.daos
 
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
+import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestReponse
 
 interface TodoWrapperDAO {
     fun create(todoWrapper: TODOWrapper, onRequestReponse: OnRequestReponse)
