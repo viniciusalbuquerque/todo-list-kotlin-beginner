@@ -1,4 +1,4 @@
-package com.example.viniciusalbuquerque.todotest.activities
+package com.example.viniciusalbuquerque.todotest.environment.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ import android.view.View
 import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.contracts.TodoWrapperContract
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperWebTodoWrapperDAO
-import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
-import com.example.viniciusalbuquerque.todotest.models.adapters.ListOfTODOSAdapter
+import com.example.viniciusalbuquerque.todotest.environment.fragments.AddToDoDialogFragment
+import com.example.viniciusalbuquerque.todotest.environment.adapters.ListOfTODOSAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
-import com.example.viniciusalbuquerque.todotest.models.dialogs.MyProgressDialog
+import com.example.viniciusalbuquerque.todotest.environment.dialogs.MyProgressDialog
 import com.example.viniciusalbuquerque.todotest.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.parsers.TodoWrapperJSONParser
 import com.example.viniciusalbuquerque.todotest.presenters.TodoWrapperPresenter
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         val todo = this.todoWrappers.get(adapterPosition)
 
         val intent = Intent(this, TODOActivity::class.java).apply {
-            this.putExtra(com.example.viniciusalbuquerque.todotest.activities.INTENT_TODO, todo)
+            this.putExtra(com.example.viniciusalbuquerque.todotest.environment.activities.INTENT_TODO, todo)
         }
         startActivity(intent)
     }

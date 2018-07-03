@@ -1,26 +1,20 @@
-package com.example.viniciusalbuquerque.todotest.activities
+package com.example.viniciusalbuquerque.todotest.environment.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import com.android.volley.Request
-import com.android.volley.VolleyError
 import com.example.viniciusalbuquerque.todotest.R
-import com.example.viniciusalbuquerque.todotest.R.id.*
-import com.example.viniciusalbuquerque.todotest.WebRequests
 import com.example.viniciusalbuquerque.todotest.contracts.TodoContract
 import com.example.viniciusalbuquerque.todotest.daos.TodoWebDAO
-import com.example.viniciusalbuquerque.todotest.fragments.AddToDoDialogFragment
-import com.example.viniciusalbuquerque.todotest.models.adapters.TODOAdapter
+import com.example.viniciusalbuquerque.todotest.environment.fragments.AddToDoDialogFragment
+import com.example.viniciusalbuquerque.todotest.environment.adapters.TODOAdapter
 import com.example.viniciusalbuquerque.todotest.models.classes.*
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestMethods
 import com.example.viniciusalbuquerque.todotest.parsers.TodoJSONParser
 import com.example.viniciusalbuquerque.todotest.presenters.TodoPresenter
 import kotlinx.android.synthetic.main.activity_todos.*
-import org.json.JSONObject
 
 const val INTENT_TODO = "INTENT_TODO_EXTRA"
 class TODOActivity : AppCompatActivity(), TodoContract.View, OnTODORequestMethods {

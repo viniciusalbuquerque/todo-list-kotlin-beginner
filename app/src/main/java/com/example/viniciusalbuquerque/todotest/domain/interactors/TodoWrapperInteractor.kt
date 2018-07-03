@@ -1,11 +1,11 @@
-package com.example.viniciusalbuquerque.todotest.interactors
+package com.example.viniciusalbuquerque.todotest.domain.interactors
 
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
-import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.ListTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.ListTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoWrapperUseCase
 
 class TodoWrapperInteractor(val listTodoWrapperUseCase: ListTodoWrapperUseCase, val addTodoWrapperUseCase: AddTodoWrapperUseCase, val removeTodoWrapperUseCase: RemoveTodoWrapperUseCase) {
 

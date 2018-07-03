@@ -1,10 +1,10 @@
-package com.example.viniciusalbuquerque.todotest.interactors
+package com.example.viniciusalbuquerque.todotest.domain.interactors
 
 import com.example.viniciusalbuquerque.todotest.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoCallbacks
-import com.example.viniciusalbuquerque.todotest.usecases.AddTodoUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.UpdateTodoUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.UpdateTodoUseCase
 
 class TodoInteractor (val addTodoUseCase: AddTodoUseCase, val removeTodoUseCase: RemoveTodoUseCase, val updateTodoUseCase: UpdateTodoUseCase) {
 

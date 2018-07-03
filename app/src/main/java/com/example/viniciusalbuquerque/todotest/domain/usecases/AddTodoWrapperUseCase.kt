@@ -1,4 +1,4 @@
-package com.example.viniciusalbuquerque.todotest.usecases
+package com.example.viniciusalbuquerque.todotest.domain.usecases
 
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper

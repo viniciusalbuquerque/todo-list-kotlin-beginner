@@ -1,4 +1,4 @@
-package com.example.viniciusalbuquerque.todotest.usecases
+package com.example.viniciusalbuquerque.todotest.domain.usecases
 
 import com.example.viniciusalbuquerque.todotest.daos.TodoDAO
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse

@@ -1,18 +1,13 @@
-package com.example.viniciusalbuquerque.todotest.models.adapters
+package com.example.viniciusalbuquerque.todotest.environment.adapters
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.example.viniciusalbuquerque.todotest.R
-import com.example.viniciusalbuquerque.todotest.models.classes.KEY_SAVED_TODOS
-import com.example.viniciusalbuquerque.todotest.models.classes.KEY_SHARED_PREFERENCES
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
-import com.example.viniciusalbuquerque.todotest.models.interfaces.OnRequestReponse
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTODORequestMethods
 import kotlinx.android.synthetic.main.adapter_todo.view.*
 

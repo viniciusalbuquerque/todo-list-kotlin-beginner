@@ -2,13 +2,13 @@ package com.example.viniciusalbuquerque.todotest.presenters
 
 import com.example.viniciusalbuquerque.todotest.contracts.TodoWrapperContract
 import com.example.viniciusalbuquerque.todotest.daos.TodoWrapperDAO
-import com.example.viniciusalbuquerque.todotest.interactors.TodoWrapperInteractor
+import com.example.viniciusalbuquerque.todotest.domain.interactors.TodoWrapperInteractor
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.models.interfaces.OnTodoWrappersCallbacks
 import com.example.viniciusalbuquerque.todotest.parsers.Parser
-import com.example.viniciusalbuquerque.todotest.usecases.AddTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.ListTodoWrapperUseCase
-import com.example.viniciusalbuquerque.todotest.usecases.RemoveTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.ListTodoWrapperUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoWrapperUseCase
 
 class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperDAO: TodoWrapperDAO, todoWrapperParser: Parser.TodoWrapperParser) : TodoWrapperContract.Presenter,
         OnTodoWrappersCallbacks.List, OnTodoWrappersCallbacks.Add, OnTodoWrappersCallbacks.Remove {

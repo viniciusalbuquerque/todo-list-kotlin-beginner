@@ -1,4 +1,4 @@
-package com.example.viniciusalbuquerque.todotest.models.dialogs
+package com.example.viniciusalbuquerque.todotest.environment.dialogs
 
 import android.content.Context
 import android.support.v7.app.AlertDialog
