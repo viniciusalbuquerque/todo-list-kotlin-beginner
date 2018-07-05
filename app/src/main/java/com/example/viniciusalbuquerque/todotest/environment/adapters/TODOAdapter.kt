@@ -9,10 +9,11 @@ import android.widget.CompoundButton
 import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTODORequestMethods
+import com.example.viniciusalbuquerque.todotest.presenters.TodoPresenter
 import kotlinx.android.synthetic.main.adapter_todo.view.*
 
 class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList : List<TODO>,
-                  val onTODORequestMethods: OnTODORequestMethods)
+                  val presenter : TodoPresenter)
         : RecyclerView.Adapter<TODOAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +32,7 @@ class TODOAdapter(val context : Context, val todoWrapperId: Long, val todoList :
         holder.hCheckBox.isChecked = todo.isDone
 
         holder.hCheckBox.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-            onTODORequestMethods.update(todoWrapperId, todoID, isChecked)
+            presenter.updateTodo(todoWrapperId, todoID, isChecked)
         }
     }
 

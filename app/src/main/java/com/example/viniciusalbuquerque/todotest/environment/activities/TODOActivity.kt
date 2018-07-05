@@ -35,10 +35,9 @@ class TODOActivity : AppCompatActivity(), TodoContract.View, OnTODORequestMethod
 
         Log.i(TODOActivity::class.java.simpleName, todoWrapper.title)
 
+        presenter = TodoPresenter(this, TodoWebDAO(this), TodoJSONParser())
         configLayout()
         fabButtonConfig()
-
-        presenter = TodoPresenter(this, TodoWebDAO(this), TodoJSONParser())
     }
 
     private fun fabButtonConfig() {
@@ -65,7 +64,7 @@ class TODOActivity : AppCompatActivity(), TodoContract.View, OnTODORequestMethod
             todoActivies = ArrayList()
 
         listOfActivities = todoActivies
-        adapter = TODOAdapter(this, todoWrapper.id, listOfActivities, this)
+        adapter = TODOAdapter(this, todoWrapper.id, listOfActivities, presenter)
         activityTodoRecyclerViewTodos.adapter = adapter
         activityTodoRecyclerViewTodos.layoutManager = LinearLayoutManager(this)
     }

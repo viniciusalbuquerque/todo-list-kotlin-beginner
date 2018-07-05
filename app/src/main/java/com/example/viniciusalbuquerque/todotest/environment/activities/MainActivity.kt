@@ -16,29 +16,24 @@ import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
 import com.example.viniciusalbuquerque.todotest.environment.dialogs.MyProgressDialog
 import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.environment.parsers.TodoWrapperJSONParser
+import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.presenters.TodoWrapperPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContract.View {
+class MainActivity : AppCompatActivity(), TodoWrapperContract.View {
 
     private val TAG = MainActivity::class.java.name
     private lateinit var todoWrappers : ArrayList<TODOWrapper>
     private lateinit var listOfTODOSAdapter : ListOfTODOSAdapter
     private lateinit var progressDialog : AlertDialog
-    private lateinit var presenter : TodoWrapperContract.Presenter
 
+    private lateinit var presenter: TodoWrapperPresenter
     private lateinit var todoWrapperWebTodoWrapperDAO: TodoWrapperWebTodoWrapperDAO
     private lateinit var todoWrapperParser: Parser.TodoWrapperParser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        todoWrappers = ArrayList()
-        listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers, this)
-
-        recyclerViewListOfTODOS.adapter = listOfTODOSAdapter
-        recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
 
         fabButtonConfig()
         progressDialog = MyProgressDialog().create(this, layoutInflater)
@@ -48,6 +43,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         todoWrapperParser = TodoWrapperJSONParser()
         presenter = TodoWrapperPresenter(this, todoWrapperWebTodoWrapperDAO, todoWrapperParser)
 
+        todoWrappers = initializeList()
+        listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers, presenter)
+
+        recyclerViewListOfTODOS.adapter = listOfTODOSAdapter
+        recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun initializeList(): ArrayList<TODOWrapper> {
+        val todoWrapperArrayList = ArrayList<TODOWrapper>()
+        val todo = com.example.viniciusalbuquerque.todotest.models.classes.TODO(1L, "First")
+
+        val todoWrapper = TODOWrapper(1L, "First Wrapper")
+        val todoArrayList = ArrayList<TODO>()
+        todoArrayList.add(todo)
+        todoWrapper.todoActivies = todoArrayList
+
+        todoWrapperArrayList.add(todoWrapper)
+        return todoWrapperArrayList
     }
 
     private fun fabButtonConfig() {
@@ -117,9 +130,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TodoWrapperContr
         presenter.cancelRequestsFromDAO()
     }
 
-    override fun onClick(v: View?) {
-        val adapterPosition = recyclerViewListOfTODOS.getChildAdapterPosition(v)
-        val todo = this.todoWrappers.get(adapterPosition)
+    override fun showTodoInfo(todoId: Long) {
+        val todo = this.todoWrappers.find { todo -> todo.id == todoId }
 
         val intent = Intent(this, TODOActivity::class.java).apply {
             this.putExtra(com.example.viniciusalbuquerque.todotest.environment.activities.INTENT_TODO, todo)

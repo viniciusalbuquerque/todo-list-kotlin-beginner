@@ -6,6 +6,7 @@ interface TodoWrapperContract {
 
     interface View {
         fun showAddNewTodoWrapperDialog()
+        fun showTodoInfo(todoId: Long)
         fun finishAddingNewTodoWrapper(todoWrapper : TODOWrapper)
         fun finishAddingNewTodoWrapperWithError(error: Any)
         fun finishLoadingList(todoWrappers : ArrayList<TODOWrapper>)
@@ -18,6 +19,7 @@ interface TodoWrapperContract {
         fun fabAddTodoWrapperClicked()
         fun addTodoWrapperDialogButtonClicked(todoWrapperTitle : String)
         fun listTodoWrappers()
+        fun todoSelected(todoId: Long)
         fun deleteTodoWrapper(todoWrapper: TODOWrapper)
         fun cancelRequestsFromDAO()
     }

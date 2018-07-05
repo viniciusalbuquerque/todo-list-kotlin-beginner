@@ -59,4 +59,8 @@ class TodoWrapperPresenter(val view : TodoWrapperContract.View, val todoWrapperD
         todoWrapperDAO.cancelRequests()
     }
 
+    override fun todoSelected(todoId: Long) {
+        view.showTodoInfo(todoId)
+    }
+
 }

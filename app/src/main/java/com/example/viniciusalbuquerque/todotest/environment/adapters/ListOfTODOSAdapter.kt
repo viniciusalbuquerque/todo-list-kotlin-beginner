@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.viniciusalbuquerque.todotest.R
 import com.example.viniciusalbuquerque.todotest.models.classes.TODOWrapper
+import com.example.viniciusalbuquerque.todotest.presenters.TodoWrapperPresenter
 import kotlinx.android.synthetic.main.adapter_list_of_todos.view.*
 
-class ListOfTODOSAdapter(val context: Context, val todoWrappers: List<TODOWrapper>, val onClickListener: View.OnClickListener) : RecyclerView.Adapter<ListOfTODOSAdapter.ViewHolder>() {
+class ListOfTODOSAdapter(val context: Context, val todoWrappers: List<TODOWrapper>, val presenter : TodoWrapperPresenter) : RecyclerView.Adapter<ListOfTODOSAdapter.ViewHolder>() {
 
     private val TAG = "ListOfTODOSAdapter";
 
@@ -25,8 +26,11 @@ class ListOfTODOSAdapter(val context: Context, val todoWrappers: List<TODOWrappe
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.hTextView.text = todoWrappers.get(position).title
-        holder.itemView.setOnClickListener(onClickListener)
+        val todo = todoWrappers.get(position)
+        holder.hTextView.text = todo.title
+        holder.itemView.setOnClickListener {
+            presenter.todoSelected(todo.id)
+        }
     }
 
 
