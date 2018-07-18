@@ -6,6 +6,8 @@ interface TodoContract {
 
     interface View {
         fun showAddNewTodoDialog()
+        fun finishedLoadingTodos(todos : ArrayList<TODO>)
+        fun finishedLoadingTodosWithError(error: Any)
         fun finishedAddingTodo(todo: TODO)
         fun finishedAddingTodoWithError(error : Any)
         fun finishedRemovingTodo(todo: TODO)
@@ -21,6 +23,7 @@ interface TodoContract {
         fun deleteTodo(todoWrapperId: Long, todoId: Long)
         fun cancelRequestsFromDAO()
         fun updateTodo(todoWrapperId: Long, todoId: Long, done : Boolean)
+        fun loadTodos(todoWrapperId: Long)
     }
 
 }

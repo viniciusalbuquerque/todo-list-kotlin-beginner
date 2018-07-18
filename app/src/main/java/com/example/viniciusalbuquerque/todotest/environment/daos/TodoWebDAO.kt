@@ -15,8 +15,9 @@ class TodoWebDAO(context: Context) : TodoDAO {
         webRequest.request(JSONObject(), URL_ADD_TODO, Request.Method.PUT, onRequestReponse)
     }
 
-    override fun read(onRequestReponse: OnRequestReponse) {
-        //nothing yet
+    override fun read(todoWrapperId: Long, onRequestReponse: OnRequestReponse) {
+        val url = URL_LIST_TODO + "?id=" + todoWrapperId
+        webRequest.request(JSONObject(), url, Request.Method.GET, onRequestReponse)
     }
 
     override fun update(todoWrapperId: Long, todoId: Long, done: Boolean, onRequestReponse: OnRequestReponse) {
@@ -29,7 +30,7 @@ class TodoWebDAO(context: Context) : TodoDAO {
 
     override fun cancelRequests() {
         webRequest.cancellRequestsForTAG(URL_ADD_TODO)
-//        webRequest.cancellRequestsForTAG(URL_LIST_TODO)
+        webRequest.cancellRequestsForTAG(URL_LIST_TODO)
         webRequest.cancellRequestsForTAG(URL_UPDATE_TODO)
         webRequest.cancellRequestsForTAG(URL_REMOVE_TODO)
     }

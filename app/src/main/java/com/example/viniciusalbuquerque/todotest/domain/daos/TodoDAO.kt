@@ -4,7 +4,7 @@ import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnRequestRepon
 
 interface TodoDAO {
     fun create(todoWrapperId: Long, todoTitle: String, onRequestReponse: OnRequestReponse)
-    fun read(onRequestReponse: OnRequestReponse)
+    fun read(todoWrapperId: Long, onRequestReponse: OnRequestReponse)
     fun update(todoWrapperId: Long, todoId: Long, done: Boolean, onRequestReponse: OnRequestReponse)
     fun delete(todoWrapperId: Long, todoId: Long, onRequestReponse: OnRequestReponse)
 

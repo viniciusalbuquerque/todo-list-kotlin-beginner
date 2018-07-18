@@ -20,4 +20,9 @@ interface OnTodoCallbacks {
         fun finishedUpdatingTodoWithError(error: Any)
     }
 
+    interface List {
+        fun finishedListingTodos(todos : ArrayList<TODO>)
+        fun finishedListingTodosWithError(error: Any)
+    }
+
 }

@@ -40,6 +40,11 @@ class TODOActivity : AppCompatActivity(), TodoContract.View, OnTODORequestMethod
         fabButtonConfig()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.loadTodos(todoWrapper.id)
+    }
+
     private fun fabButtonConfig() {
         fabNewTODO.setOnClickListener {
             presenter.fabAddTodoClicked()
@@ -75,6 +80,18 @@ class TODOActivity : AppCompatActivity(), TodoContract.View, OnTODORequestMethod
 
     override fun showAddNewTodoDialog() {
         openAddNewToDoDialog()
+    }
+
+    override fun finishedLoadingTodos(todos: ArrayList<TODO>) {
+        listOfActivities.apply {
+            this.clear()
+            this.addAll(todos)
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun finishedLoadingTodosWithError(error: Any) {
+        //show error
     }
 
     override fun finishedAddingTodo(todo: TODO) {

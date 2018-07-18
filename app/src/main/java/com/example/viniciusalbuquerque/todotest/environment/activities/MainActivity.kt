@@ -43,24 +43,11 @@ class MainActivity : AppCompatActivity(), TodoWrapperContract.View {
         todoWrapperParser = TodoWrapperJSONParser()
         presenter = TodoWrapperPresenter(this, todoWrapperWebTodoWrapperDAO, todoWrapperParser)
 
-        todoWrappers = initializeList()
+        todoWrappers = ArrayList()
         listOfTODOSAdapter = ListOfTODOSAdapter(this, todoWrappers, presenter)
 
         recyclerViewListOfTODOS.adapter = listOfTODOSAdapter
         recyclerViewListOfTODOS.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun initializeList(): ArrayList<TODOWrapper> {
-        val todoWrapperArrayList = ArrayList<TODOWrapper>()
-        val todo = com.example.viniciusalbuquerque.todotest.models.classes.TODO(1L, "First")
-
-        val todoWrapper = TODOWrapper(1L, "First Wrapper")
-        val todoArrayList = ArrayList<TODO>()
-        todoArrayList.add(todo)
-        todoWrapper.todoActivies = todoArrayList
-
-        todoWrapperArrayList.add(todoWrapper)
-        return todoWrapperArrayList
     }
 
     private fun fabButtonConfig() {
@@ -99,7 +86,10 @@ class MainActivity : AppCompatActivity(), TodoWrapperContract.View {
 
     override fun finishLoadingList(todoWrappers: ArrayList<TODOWrapper>) {
         progressDialog.dismiss()
-        this.todoWrappers = todoWrappers
+        this.todoWrappers.apply {
+            this.clear()
+            this.addAll(todoWrappers)
+        }
         listOfTODOSAdapter.notifyDataSetChanged()
     }
 

@@ -12,6 +12,7 @@ interface Parser {
     }
 
     interface TodoParser {
+        fun parseList(response: Any) : ArrayList<TODO>
         fun parseTodo(response: Any) : TODO
         fun parseRemove(response: Any) : TODO
         fun parseUpdate(response: Any) : String //message?

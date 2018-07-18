@@ -7,13 +7,26 @@ import com.example.viniciusalbuquerque.todotest.models.classes.TODO
 import com.example.viniciusalbuquerque.todotest.domain.interfaces.OnTodoCallbacks
 import com.example.viniciusalbuquerque.todotest.domain.parsers.Parser
 import com.example.viniciusalbuquerque.todotest.domain.usecases.AddTodoUseCase
+import com.example.viniciusalbuquerque.todotest.domain.usecases.ListToDosUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.RemoveTodoUseCase
 import com.example.viniciusalbuquerque.todotest.domain.usecases.UpdateTodoUseCase
 
 class TodoPresenter(val view : TodoContract.View, val todoDAO: TodoDAO, val parser: Parser.TodoParser) :
-        TodoContract.Presenter, OnTodoCallbacks.Add, OnTodoCallbacks.Update, OnTodoCallbacks.Remove {
+        TodoContract.Presenter, OnTodoCallbacks.Add, OnTodoCallbacks.Update, OnTodoCallbacks.Remove, OnTodoCallbacks.List {
 
-    private val interactor : TodoInteractor = TodoInteractor(AddTodoUseCase(parser), RemoveTodoUseCase(parser), UpdateTodoUseCase(parser))
+    private val interactor : TodoInteractor = TodoInteractor(ListToDosUseCase(parser), AddTodoUseCase(parser), RemoveTodoUseCase(parser), UpdateTodoUseCase(parser))
+
+    override fun loadTodos(todoWrapperId: Long) {
+        interactor.listTodo(todoWrapperId, todoDAO, this)
+    }
+
+    override fun finishedListingTodos(todos: ArrayList<TODO>) {
+        view.finishedLoadingTodos(todos)
+    }
+
+    override fun finishedListingTodosWithError(error: Any) {
+        view.finishedLoadingTodosWithError(error)
+    }
 
     override fun fabAddTodoClicked() {
         view.showAddNewTodoDialog()
